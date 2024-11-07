@@ -2,7 +2,8 @@ FROM amazoncorretto:17.0.7-al2023-headless
 WORKDIR /app
 
 # 보안 설정
-RUN useradd -r spring
+RUN dnf install -y shadow-utils && \
+    adduser -r spring
 
 # GitHub Actions에서 빌드된 JAR 파일 복사
 ARG JAR_FILE=build/libs/*.jar
