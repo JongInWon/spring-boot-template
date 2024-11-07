@@ -91,7 +91,7 @@ jobs:
 
     # 빌드 결과물 다운로드
     - name: Download build artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-artifact
         path: demo/build/libs
