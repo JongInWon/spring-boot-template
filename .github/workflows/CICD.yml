@@ -2,9 +2,13 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "main"
+      - "develop" 
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - "main"
+      - "develop" 
   release:
     types: [published]
 
@@ -32,7 +36,7 @@ jobs:
 
     # 빌드 결과물 저장
     - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-artifact
         path: demo/build/libs/*.jar
@@ -53,7 +57,7 @@ jobs:
 
     # 빌드 결과물 다운로드
     - name: Download build artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-artifact
         path: demo/build/libs
@@ -68,7 +72,7 @@ jobs:
 
     # 테스트 결과 저장
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: test-results
