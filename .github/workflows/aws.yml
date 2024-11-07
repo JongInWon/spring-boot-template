@@ -131,4 +131,4 @@ jobs:
     # ECS 서비스 업데이트
     - name: Update ECS service
       run: |
-        aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment
+        aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service your-service-name --force-new-deployment
