@@ -90,7 +90,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: build-artifact
-        path: build/libs
+        path: demo/build/libs
 
     # 버전 설정
     - name: Set version
