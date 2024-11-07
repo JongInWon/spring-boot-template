@@ -26,6 +26,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
+      working-directory: ./demo
       run: ./gradlew clean build -x test
 
     # 빌드 결과물 저장
@@ -33,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-artifact
-        path: build/libs/*.jar
+        path: demo/build/libs/*.jar
 
   test:
     needs: build  # 빌드 완료 후 실행
@@ -54,12 +55,13 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: build-artifact
-        path: build/libs
+        path: demo/build/libs
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Run tests
+      working-directory: ./demo
       run: ./gradlew test
 
     # 테스트 결과 저장
@@ -116,7 +118,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: your-repository-name
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }} .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }} -f demo/Dockerfile demo/
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }}
         
         if [ "${{ github.event_name }}" == "push" ]; then
