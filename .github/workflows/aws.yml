@@ -59,6 +59,7 @@ jobs:
         path: demo/build/libs
 
     - name: Grant execute permission for gradlew
+      working-directory: ./demo
       run: chmod +x gradlew
 
     - name: Run tests
@@ -72,8 +73,8 @@ jobs:
       with:
         name: test-results
         path: |
-          build/reports/tests/test/
-          build/test-results/test/
+          demo/build/reports/tests/test/
+          demo/build/test-results/test/
 
   deploy:
     needs: [build, test]  # build와 test 모두 성공해야 실행
