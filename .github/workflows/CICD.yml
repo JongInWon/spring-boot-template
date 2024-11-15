@@ -28,13 +28,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew bootJar -x test
+        run: .demo/gradlew bootJar -x test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-artifact
-          path: build/libs/*.jar
+          path: demo/build/libs/*.jar
 
   test:
     needs: build
@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          path: build/libs
+          path: demo/build/libs
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -68,8 +68,8 @@ jobs:
         with:
           name: test-results
           path: |
-            build/reports/tests/test/
-            build/test-results/test/
+            demo/build/reports/tests/test/
+            demo/build/test-results/test/
 
   deploy:
     needs: [build, test]
@@ -84,7 +84,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          path: build/libs
+          path: demo/build/libs
 
       - name: Set version
         run: echo "VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
