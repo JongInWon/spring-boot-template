@@ -1,11 +1,11 @@
-FROM eclipse-temurin:17-jre-jammy AS extractor
+FROM amazoncorretto:17.0.7-al2023-headless AS extractor
 
 WORKDIR /extract
 COPY build/libs/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 # Run stage
-FROM eclipse-temurin:17-jre-jammy
+FROM amazoncorretto:17.0.7-al2023-headless
 
 WORKDIR /app
 
