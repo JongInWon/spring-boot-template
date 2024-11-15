@@ -11,8 +11,6 @@ on:
     branches:
       - "main"    # main 브랜치로 PR 생성될 때
       - "develop" # develop 브랜치로 PR 생성될 때
-  release:
-    types: [published] # GitHub Release가 publish될 때
 
 # 전역 환경 변수 설정
 env:
@@ -100,7 +98,7 @@ jobs:
   # 배포 작업
   deploy:
     needs: [build, test]  # 빌드와 테스트가 모두 성공적으로 완료된 후에 실행
-    if: github.event_name == 'release'  # GitHub Release 생성 시에만 배포 실행
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
