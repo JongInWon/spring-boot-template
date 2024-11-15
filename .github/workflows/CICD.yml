@@ -107,9 +107,8 @@ jobs:
           name: build-artifact
           path: demo/build/libs
 
-      # Docker 이미지 태그 버전 설정
       - name: Set version
-        run: echo "VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+        run: echo "VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       # AWS 접근을 위한 인증 설정
       - name: Configure AWS credentials
