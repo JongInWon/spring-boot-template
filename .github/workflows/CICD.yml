@@ -110,5 +110,5 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           DOCKER_BUILDKIT: "1"
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }} .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }} -f demo/Dockerfile demo/
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }}
