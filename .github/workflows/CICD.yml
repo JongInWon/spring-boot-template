@@ -12,11 +12,6 @@ on:
       - "main"    # main 브랜치로 PR 생성될 때
       - "develop" # develop 브랜치로 PR 생성될 때
 
-# 전역 환경 변수 설정
-env:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  DOCKER_BUILDKIT: "1"
-
 # 실행될 작업들
 jobs:
   # 빌드 작업
@@ -138,8 +133,3 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }} -f demo/Dockerfile demo/
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }}
-
-      # ECS 서비스 업데이트하여 새 버전 배포
-      - name: Update ECS service
-        run: |
-          aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.ECS_SERVICE_NAME }} --force-new-deployment
