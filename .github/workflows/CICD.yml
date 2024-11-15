@@ -25,10 +25,12 @@ jobs:
           cache: 'gradle'
 
       - name: Grant execute permission for gradlew
+        working-directory: ./demo
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: .demo/gradlew bootJar -x test
+        working-directory: ./demo
+        run: ./gradlew bootJar -x test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -57,9 +59,11 @@ jobs:
           path: demo/build/libs
 
       - name: Grant execute permission for gradlew
+        working-directory: ./demo
         run: chmod +x gradlew
 
       - name: Run tests
+        working-directory: ./demo
         run: ./gradlew test
 
       - name: Upload test results
