@@ -24,6 +24,7 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
@@ -34,4 +35,8 @@ bootJar {
 	layered {
 		enabled = true
 	}
+<<<<<<< HEAD:demo/build.gradle
 }
+=======
+}
+>>>>>>> c271a17 (feat: ECS 배포 파이프라인 테스트):build.gradle
